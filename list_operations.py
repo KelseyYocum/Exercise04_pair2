@@ -40,7 +40,7 @@ def first_three(input_list):
 
 def last_five(input_list):
     """Return the last five elements of the input list."""
-    return input_list[-5:len(input_list)]
+    return input_list[len(input_list)-5:]
 
 def middle(input_list):
     """Return all elements of the input list except the first two and the last
@@ -76,8 +76,8 @@ def replace_middle(input_list):
 
 def delete_third_and_seventh(input_list):
     """Remove the third and seventh elements of the input list."""
+    del input_list[6]
     del input_list[2]
-    del input_list[5]
 
 def delete_middle(input_list):
     """Remove all elements from the input list except for the first two and the
@@ -111,17 +111,18 @@ def custom_len(input_list):
 # For the next four functions, get clever using slice operations described in the first half
 def custom_append(input_list, value):
     """custom_append(input_list, value) imitates input_list.append(value)"""
-    input_list += [value]
+    input_list[custom_len(input_list):] = [value]
 
 def custom_extend(input_list, values):
     """custom_extend(input_list, values) imitates input_list.extend(values)"""
-    input_list += values
+    input_list[custom_len(input_list):] = values
 
 def custom_insert(input_list, index, value):
     """custom_insert(input_list, index, value) imitates
     input_list.insert(index, value)
     """
     input_list[index:index] = [value]
+
 def custom_remove(input_list, value):
     """custom_remove(input_list, value) imitates input_list.remove(value)"""
     count = 0
@@ -172,11 +173,9 @@ def custom_equality(some_list, another_list):
     """custom_equality(some_list, another_list) imitates
     (some_list == another_list)
     """
-    count = 0
     if custom_len(some_list) != custom_len(another_list):
         return False
-    for i in some_list:
-        if i != another_list[count]:
+    for i in range(custom_len(some_list)):
+        if some_list[i] != another_list[i]:
             return False
-        count += 1
     return True
